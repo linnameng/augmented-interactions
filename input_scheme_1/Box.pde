@@ -6,6 +6,7 @@ class Box {
   int degrees;
   int size;
   color fillColor;
+  int borderWeight;
 
   AffineTransform aff;
   double[] checkPoint;
@@ -21,6 +22,7 @@ class Box {
     degrees = 0;
     size = 1;
     fillColor = color(0,0,255);
+    borderWeight = 1;
 
     aff = new AffineTransform();
     checkPoint = new double[2];
@@ -34,6 +36,7 @@ class Box {
     scale(size);
     fill(fillColor);
     rect(x, y, w, h);
+    strokeWeight(borderWeight); //sets the thickness of the border
     popMatrix();
   }
 
@@ -67,4 +70,3 @@ class Box {
     return (ox >= x && ox <= (y + w) && oy >= y && oy <= (y + h));
   }
 }
-
