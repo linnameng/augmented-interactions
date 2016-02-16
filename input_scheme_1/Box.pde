@@ -13,11 +13,13 @@ class Box {
                     };
   int tintPercentage; 
   int borderWeight;
-
+  color borderColor = color(0,0,0);
+  
   AffineTransform aff;
   double[] checkPoint;
   float ox, oy;
   boolean isSelected = false;
+  boolean mouseInside = false;
   
   public Box(float newX, float newY, float newW, float newH) { 
     x = 0 - newW/2;
@@ -39,30 +41,49 @@ class Box {
 
   void drawBox() {
     pushMatrix();
-    //translate(200,200);
     translate(cx, cy);
     rotate(radians(degrees));
     scale(size);
     fill(color(red(fillColor),green(fillColor),blue(fillColor),tintPercentage)); //make transparency persist when switching colors
-    rect(x, y, w, h);
-    if (!isSelected)
+    
+    if (isSelected)
     {
-      borderWeight = 5;
+       borderWeight = 5;
     }
     else
     {
       borderWeight = 1;
     }
+
     strokeWeight(borderWeight); //sets the thickness of the border
+    stroke(borderColor);
+    rect(x, y, w, h);
     popMatrix();
+  }
+  
+  
+  void mouseHandles ()
+  {
+      if (enableMouse)
+    {
+      checkForHit(mouseX, mouseY);    
+      if (mouseInside)
+      {
+         borderColor = color(55,55,55);
+      }
+      else
+      {
+         borderColor = color(0,0,0);
+      }
+    }
   }
 
   void checkForHit(float x, float y) {
     if (contains(x, y)) {
-      fillColor = color(255,255,0);
+      mouseInside = true;
     }
     else {
-      fillColor = color(0,0,255);
+      mouseInside = false;
     }
   }
 
@@ -108,7 +129,17 @@ class Box {
     {
          cy = cy + 2; 
     }
-    if (keysActive.get("rotateLeft") )
+    if (keysActive.get("rotateLeftByScroll") )
+    {
+         degrees = degrees - 9;
+         keysActive.put("rotateLeftByScroll", false);
+    }
+     if (keysActive.get("rotateRightByScroll") )
+    {
+        degrees = degrees + 9;
+        keysActive.put("rotateRightByScroll", false);
+    }
+     if (keysActive.get("rotateLeft") )
     {
          degrees = degrees - 3;
     }
@@ -129,6 +160,11 @@ class Box {
         if(tintPercentage < 0) {
           tintPercentage = 255;
         }
+    }
+    if (keysActive.get("dragMove") )
+    {
+          cx = mouseX;
+          cy = mouseY;
     }
   }
   

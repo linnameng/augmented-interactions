@@ -1,29 +1,37 @@
 Box b1, b2;
+String scheme2ManipulationType = "";
 
 void setup() {
   size(400, 400);
-  initializeControls();
   
   b1 = new Box(75, 100, 100, 100);
   b1.degrees = 0;
   
   b2 = new Box(225, 100, 100, 100);
   b2.degrees = 0;
+    
+  initializeControls();
+
 }
 
 void draw() {
   background(255);
-  //b1.checkForHit(mouseX, mouseY); 
-  if(selectFirstSquare) {
+   if (scheme2 || scheme3)
+   {
+       enableMouse = true;
+       b1.mouseHandles();
+       b2.mouseHandles();
+   }
+   if(b1.isSelected) {
       b1.transformBox();  
-      b2.isSelected = false;
-  }
-  b1.drawBox();
-  if (selectSecondSquare) {
-      b2.transformBox();  
-      b1.isSelected = false;
+   }
+    b1.drawBox();
+
+  if (b2.isSelected) {
+     b2.transformBox();  
   }
   b2.drawBox();
+
 }
 
 void keyPressed() {
@@ -58,9 +66,8 @@ void keyPressed() {
     if(keyCode == downArrow) {
       currentBox().colorSwapDown();
     }
-  } else if (scheme2) {
-    scheme2SetKey(keyCode);
-  } else {
+  } 
+    else if(scheme3) {
     scheme3SetKey(keyCode);
   }
   
@@ -70,9 +77,8 @@ void keyPressed() {
 void keyReleased() {
   if (scheme1) {
     scheme1ReleaseKey(keyCode);
-  } else if (scheme2) {
-    scheme2ReleaseKey(keyCode);
-  } else {
+  } 
+  else if(scheme3){
     scheme3ReleaseKey(keyCode);
   }
 }
@@ -84,4 +90,45 @@ Box currentBox() {
   } else {
     return b2;
   }
+}
+
+void mouseClicked()
+{
+  if (scheme2 || scheme3) // since for both scheme 2 and 3, clicking is our selection
+  {
+    scheme2ManipulationType = leftClick;
+    scheme2Manipulation(scheme2ManipulationType);
+  }
+}
+
+void mouseDragged()
+{
+  if (scheme2)
+  {
+    scheme2ManipulationType = drag;
+    scheme2Manipulation(scheme2ManipulationType);
+  }
+}
+
+void mouseWheel(MouseEvent event) 
+{
+  if (scheme2)
+  {
+    float e = event.getCount();
+    if (e > 0)
+    {
+      scheme2ManipulationType = scrollUp;
+    }
+    if (e < 0)
+    {
+      scheme2ManipulationType = scrollDown;
+    }
+    scheme2Manipulation(scheme2ManipulationType);
+  }
+}
+
+void mouseReleased()
+{
+      scheme2ManipulationType = leftClickRelease;
+      scheme2Manipulation(scheme2ManipulationType);
 }

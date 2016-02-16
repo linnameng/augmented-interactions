@@ -15,15 +15,21 @@ int keyOne = 49;
 int keyTwo = 50;
 int ctrl = 17;
 int space = 32; 
+boolean enableMouse = false;
+
+String scrollUp = "scrolledUp";
+String scrollDown = "scrolledDown";
+String drag = "dragged";
+String leftClick = "clicked";
+String leftClickRelease = "releaseClick";
+
 
 // selectors for scheme type (keyboard, mouse, keyboard/mouse). By default we set scheme1 when the code runs.
 boolean scheme1 = true;
 boolean scheme2 = false;
 boolean scheme3 = false;
 
-//Selectors for telling which square is currently selected. Initially first square is selected
-boolean selectFirstSquare = true;
-boolean selectSecondSquare = false;
+
 
 
 //
@@ -38,10 +44,14 @@ void initializeControls()
   keysActive.put("moveDown", false);
   keysActive.put("rotateLeft", false);
   keysActive.put("rotateRight", false);
+  keysActive.put("rotateLeftByScroll", false);
+  keysActive.put("rotateRightByScroll", false);
   keysActive.put("transparencyUp", false);
   keysActive.put("transparencyDown", false);
-  selectFirstSquare = true;
-  selectSecondSquare = false;
+  keysActive.put("dragMove", false);
+
+  b1.isSelected = true;
+  b2.isSelected = false;
 }
 
 // ALL functions for scheme 1
@@ -74,13 +84,13 @@ void scheme1SetKey(int keyCode)
   }
   if (keyCode == keyOne)
   {
-   selectFirstSquare = true;
-   selectSecondSquare = false;
+   b1.isSelected = true;
+   b2.isSelected = false;
   }
   if (keyCode == keyTwo)
   {
-   selectSecondSquare = true;
-   selectFirstSquare = false;
+   b2.isSelected = true;
+   b1.isSelected = false;
   }
   if (keyCode == space) 
   {
@@ -131,15 +141,58 @@ void  scheme1ReleaseKey(int keyCode)
 }
 
 
+void scheme2Manipulation (String transformation)
+{
+        if (transformation.equalsIgnoreCase (leftClick) )
+        {
+           if (b2.mouseInside)
+           {
+               b2.isSelected = true;
+               b1.isSelected = false;
+           }
+           else if (b1.mouseInside)
+           {
+               b1.isSelected = true;
+               b2.isSelected = false;
+           }
+        }
+        
+        if (transformation.equalsIgnoreCase (drag))
+        {
+           if (b2.mouseInside)
+           {
+               if( (b1.isSelected) && !(b1.mouseInside) ) // IF WE ARE DRAGGING B1 INSIDE B2
+               {
+                 b2.isSelected = true;
+                 b1.isSelected = false;
+               }
+               keysActive.put("dragMove", true);
+           }
+           else if (b1.mouseInside)
+           {
+               b1.isSelected = true;
+               b2.isSelected = false;
+               keysActive.put("dragMove", true);
+           }
+        }
+        
+        if (transformation.equalsIgnoreCase (leftClickRelease)) // stop dragging box with mouse
+        {
+          keysActive.put("dragMove", false);
+        }
+        
+        if (transformation.equalsIgnoreCase (scrollUp)) 
+        {
+          keysActive.put("rotateRightByScroll", false);
+          keysActive.put("rotateLeftByScroll", true);  
+        }
+        if (transformation.equalsIgnoreCase (scrollDown)) 
+        {
+          keysActive.put("rotateLeftByScroll", false);
+          keysActive.put("rotateRightByScroll", true);
+        }
+ }
 
-void  scheme2SetKey(int keyCode)
-{
-    
-}
-void  scheme2ReleaseKey(int keyCode)
-{
-    
-}
 
 void  scheme3SetKey(int keyCode)
 {
