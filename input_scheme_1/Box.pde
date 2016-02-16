@@ -121,8 +121,6 @@ class Box {
     if (keysActive.get("colorSwapUp") )
     {
         fillColor = colors[colorCounter];
-        fillColor = color(red(fillColor),green(fillColor),blue(fillColor),tintPercentage);
-
         colorCounter++;
         if(colorCounter > 11) {
           colorCounter = 0;
@@ -132,7 +130,6 @@ class Box {
     if (keysActive.get("colorSwapDown") )
     {
         fillColor = colors[colorCounter]; 
-
         colorCounter--;
         if(colorCounter < 0) {
           colorCounter = 11;
