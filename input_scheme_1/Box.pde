@@ -6,6 +6,12 @@ class Box {
   int degrees;
   int size;
   color fillColor;
+  int colorCounter;
+  color[] colors = {color(0,0,0), color(0,0,255), color(0,255,0), color(0,255,255),
+                    color(255,0,0), color(255,0,255), color(255,255,0), color(255,255,255), 
+                    color(150,0,150), color(150,150,0), color(0,150,150), color(0,0,150), 
+                    };
+  int tintPercentage; 
   int borderWeight;
 
   AffineTransform aff;
@@ -22,7 +28,9 @@ class Box {
     cy = newY + h/2; 
     degrees = 0;
     size = 1;
-    fillColor = color(0,0,255, 255); // Added 4th parameter for adjusting transparency later, by default its 255  = 0 transparency
+    colorCounter = 0;
+    fillColor = colors[0]; 
+    tintPercentage = 255; //initialize transparency
     borderWeight = 1;
     
     aff = new AffineTransform();
@@ -35,7 +43,7 @@ class Box {
     translate(cx, cy);
     rotate(radians(degrees));
     scale(size);
-    fill(fillColor);
+    fill(color(red(fillColor),green(fillColor),blue(fillColor),tintPercentage)); //make transparency persist when switching colors
     rect(x, y, w, h);
     if (!isSelected)
     {
@@ -109,6 +117,43 @@ class Box {
      if (keysActive.get("rotateRight") )
     {
         degrees = degrees + 3;
+    }
+    if (keysActive.get("colorSwapUp") )
+    {
+        fillColor = colors[colorCounter];
+        fillColor = color(red(fillColor),green(fillColor),blue(fillColor),tintPercentage);
+
+        colorCounter++;
+        if(colorCounter > 11) {
+          colorCounter = 0;
+        }
+        println("colorCounter = "+colorCounter); //testing to see how values change in one key press
+    }
+    if (keysActive.get("colorSwapDown") )
+    {
+        fillColor = colors[colorCounter]; 
+
+        colorCounter--;
+        if(colorCounter < 0) {
+          colorCounter = 11;
+        }
+        println("colorCounter = "+colorCounter); //testing to see how values change in one key press
+    }
+    if (keysActive.get("transparencyUp") )
+    {
+        tintPercentage = tintPercentage + 20;
+        if(tintPercentage > 255) {
+          tintPercentage = 0;
+        }
+        println("tintPercentage = "+tintPercentage); //testing to see how values change in one key press
+    }
+    if (keysActive.get("transparencyDown") )
+    {
+        tintPercentage = tintPercentage - 20;
+        if(tintPercentage < 0) {
+          tintPercentage = 255;
+        }
+        println("tintPercentage = "+tintPercentage); //testing to see how values change in one key press
     }
   }
   

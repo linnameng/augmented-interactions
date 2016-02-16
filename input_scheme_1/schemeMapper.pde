@@ -13,6 +13,8 @@ int a = 65;
 int d = 68;
 int keyOne = 49;
 int keyTwo = 50;
+int ctrl = 17;
+int shift = 16;
 
 // selectors for scheme type (keyboard, mouse, keyboard/mouse). By default we set scheme1 when the code runs.
 boolean scheme1 = true;
@@ -37,7 +39,7 @@ void initializeControls()
   keysActive.put("rotateLeft", false);
   keysActive.put("rotateRight", false);
   keysActive.put("colorSwapUp", false);
-  keysActive.put("colorswapDown", false);
+  keysActive.put("colorSwapDown", false);
   keysActive.put("transparencyUp", false);
   keysActive.put("transparencyDown", false);
   selectFirstSquare = true;
@@ -82,6 +84,22 @@ void scheme1SetKey(int keyCode)
    selectSecondSquare = true;
    selectFirstSquare = false;
   }
+  if (keyCode == upArrow) 
+  {
+   keysActive.put("colorSwapUp", true);  
+  }
+  if (keyCode == downArrow) 
+  {
+   keysActive.put("colorSwapDown", true);  
+  }
+  if (keyCode == shift) 
+  {
+   keysActive.put("transparencyUp", true);  
+  }
+  if (keyCode == ctrl) 
+  {
+   keysActive.put("transparencyDown", true);  
+  }
 }
 
 // To tell the system that the current manipulation has been stopped, (Example -  to stop rotating when the key is released )
@@ -111,6 +129,22 @@ void  scheme1ReleaseKey(int keyCode)
   if (keyCode ==  d)
   {
    keysActive.put("moveRight", false);  
+  }
+  if (keyCode == upArrow) 
+  {
+   keysActive.put("colorSwapUp", false);  
+  }
+  if (keyCode == downArrow) 
+  {
+   keysActive.put("colorSwapDown", false);  
+  }
+  if (keyCode == shift) 
+  {
+   keysActive.put("transparencyUp", false);  
+  }
+  if (keyCode == ctrl) 
+  {
+   keysActive.put("transparencyDown", false);  
   }
 }
 
