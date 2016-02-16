@@ -1,6 +1,5 @@
 Box b1, b2;
 
-
 void setup() {
   size(400, 400);
   initializeControls();
@@ -15,14 +14,12 @@ void setup() {
 void draw() {
   background(255);
   //b1.checkForHit(mouseX, mouseY); 
-  if(selectFirstSquare)
-  {
+  if(selectFirstSquare) {
       b1.transformBox();  
       b2.isSelected = false;
   }
   b1.drawBox();
-  if (selectSecondSquare)
-  {
+  if (selectSecondSquare) {
       b2.transformBox();  
       b1.isSelected = false;
   }
@@ -30,55 +27,61 @@ void draw() {
 }
 
 void keyPressed() {
-  if (keyCode == f1) // see if there is a scheme change
-  {
+  // see if there is a scheme change
+  if (keyCode == f1) {
      initializeControls();
      scheme1 = true;
      scheme2 = false;
      scheme3 = false;
   }
-   if (keyCode == f2)
-  {
+  
+  if (keyCode == f2) {
      initializeControls();
      scheme1 = false;
      scheme2 = true;
      scheme3 = false;
   }
-   if (keyCode == f3)
-  {
+  
+  if (keyCode == f3) {
      initializeControls();
      scheme1 = false;
      scheme2 = false;
      scheme3 = true;
   }
   
-   if (scheme1) // when any key is pressed, it runs changes for the currently selected scheme
-  {
+  // when any key is pressed, it runs changes for the currently selected scheme
+  if (scheme1) {
     scheme1SetKey(keyCode);
-  }
-   else if (scheme2)
-  {
+    if(keyCode == upArrow) {
+      currentBox().colorSwapUp();
+    }
+    if(keyCode == downArrow) {
+      currentBox().colorSwapDown();
+    }
+  } else if (scheme2) {
     scheme2SetKey(keyCode);
-  }
-   else 
-  {
+  } else {
     scheme3SetKey(keyCode);
   }
   
 }
 
-void keyReleased() // when any key is released, it tries to stop doing the changes for that selected scheme
-{
-   if (scheme1)
-  {
+// when any key is released, it tries to stop doing the changes for that selected scheme
+void keyReleased() {
+  if (scheme1) {
     scheme1ReleaseKey(keyCode);
-  }
-   else if (scheme2)
-  {
+  } else if (scheme2) {
     scheme2ReleaseKey(keyCode);
-  }
-   else 
-  {
+  } else {
     scheme3ReleaseKey(keyCode);
+  }
+}
+
+//returns the box that is currently active
+Box currentBox() {
+  if(b1.isSelected) {
+    return b1;
+  } else {
+    return b2;
   }
 }

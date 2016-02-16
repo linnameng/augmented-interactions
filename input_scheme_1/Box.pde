@@ -7,9 +7,9 @@ class Box {
   int size;
   color fillColor;
   int colorCounter;
-  color[] colors = {color(0,0,0), color(0,0,255), color(0,255,0), color(0,255,255),
-                    color(255,0,0), color(255,0,255), color(255,255,0), color(255,255,255), 
-                    color(150,0,150), color(150,150,0), color(0,150,150), color(0,0,150), 
+  color[] colors = {color(255,255,255), color(0,0,255), color(0,255,0), color(0,255,255),
+                    color(255,0,0), color(255,0,255), color(255,255,0), color(0,0,0), 
+                    color(150,0,100), color(150,100,0), color(0,150,100), color(0,0,100), 
                     };
   int tintPercentage; 
   int borderWeight;
@@ -87,8 +87,6 @@ class Box {
     return (ox >= x && ox <= (y + w) && oy >= y && oy <= (y + h));
   }
   
-  
-  
   // This function dictates what changes need to be done on the properties of the box
   public void transformBox()
   {
@@ -118,42 +116,35 @@ class Box {
     {
         degrees = degrees + 3;
     }
-    if (keysActive.get("colorSwapUp") )
-    {
-        fillColor = colors[colorCounter];
-        colorCounter++;
-        if(colorCounter > 11) {
-          colorCounter = 0;
-        }
-        println("colorCounter = "+colorCounter); //testing to see how values change in one key press
-    }
-    if (keysActive.get("colorSwapDown") )
-    {
-        fillColor = colors[colorCounter]; 
-        colorCounter--;
-        if(colorCounter < 0) {
-          colorCounter = 11;
-        }
-        println("colorCounter = "+colorCounter); //testing to see how values change in one key press
-    }
     if (keysActive.get("transparencyUp") )
     {
-        tintPercentage = tintPercentage + 20;
+        tintPercentage = tintPercentage + 3;
         if(tintPercentage > 255) {
           tintPercentage = 0;
         }
-        println("tintPercentage = "+tintPercentage); //testing to see how values change in one key press
     }
     if (keysActive.get("transparencyDown") )
     {
-        tintPercentage = tintPercentage - 20;
+        tintPercentage = tintPercentage - 3;
         if(tintPercentage < 0) {
           tintPercentage = 255;
         }
-        println("tintPercentage = "+tintPercentage); //testing to see how values change in one key press
     }
   }
   
+  void colorSwapDown() {
+    fillColor = colors[colorCounter]; 
+    colorCounter--;
+    if(colorCounter < 0) {
+      colorCounter = 11;
+    }
+  }
   
-  
+  void colorSwapUp() {
+    fillColor = colors[colorCounter];
+    colorCounter++;
+    if(colorCounter > 11) {
+      colorCounter = 0;
+    }  
+  }
 }

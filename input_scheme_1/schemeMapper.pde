@@ -14,7 +14,7 @@ int d = 68;
 int keyOne = 49;
 int keyTwo = 50;
 int ctrl = 17;
-int shift = 16;
+int space = 32; 
 
 // selectors for scheme type (keyboard, mouse, keyboard/mouse). By default we set scheme1 when the code runs.
 boolean scheme1 = true;
@@ -38,8 +38,6 @@ void initializeControls()
   keysActive.put("moveDown", false);
   keysActive.put("rotateLeft", false);
   keysActive.put("rotateRight", false);
-  keysActive.put("colorSwapUp", false);
-  keysActive.put("colorSwapDown", false);
   keysActive.put("transparencyUp", false);
   keysActive.put("transparencyDown", false);
   selectFirstSquare = true;
@@ -84,15 +82,7 @@ void scheme1SetKey(int keyCode)
    selectSecondSquare = true;
    selectFirstSquare = false;
   }
-  if (keyCode == upArrow) 
-  {
-   keysActive.put("colorSwapUp", true);  
-  }
-  if (keyCode == downArrow) 
-  {
-   keysActive.put("colorSwapDown", true);  
-  }
-  if (keyCode == shift) 
+  if (keyCode == space) 
   {
    keysActive.put("transparencyUp", true);  
   }
@@ -106,7 +96,7 @@ void scheme1SetKey(int keyCode)
 // This release key function is needed to make 2 actions happen at the same time. Without it, only one is happening at a time
 void  scheme1ReleaseKey(int keyCode)
 {
-    if(keyCode == leftArrow) 
+  if(keyCode == leftArrow) 
   {
     keysActive.put("rotateLeft", false);
   } 
@@ -130,15 +120,7 @@ void  scheme1ReleaseKey(int keyCode)
   {
    keysActive.put("moveRight", false);  
   }
-  if (keyCode == upArrow) 
-  {
-   keysActive.put("colorSwapUp", false);  
-  }
-  if (keyCode == downArrow) 
-  {
-   keysActive.put("colorSwapDown", false);  
-  }
-  if (keyCode == shift) 
+  if (keyCode == space) 
   {
    keysActive.put("transparencyUp", false);  
   }
