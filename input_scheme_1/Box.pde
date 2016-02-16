@@ -9,7 +9,7 @@ class Box {
   int colorCounter;
   color[] colors = {color(255,255,255), color(0,0,255), color(0,255,0), color(0,255,255),
                     color(255,0,0), color(255,0,255), color(255,255,0), color(0,0,0), 
-                    color(150,0,100), color(150,100,0), color(0,150,100), color(0,0,100), 
+                    color(150,0,100), color(150,10,0), color(0,150,150), color(0,0,150), 
                     };
   int tintPercentage; 
   int borderWeight;
@@ -108,6 +108,8 @@ class Box {
     return (ox >= x && ox <= (y + w) && oy >= y && oy <= (y + h));
   }
   
+  
+  
   // This function dictates what changes need to be done on the properties of the box
   public void transformBox()
   {
@@ -169,18 +171,18 @@ class Box {
   }
   
   void colorSwapDown() {
-    fillColor = colors[colorCounter]; 
     colorCounter--;
     if(colorCounter < 0) {
       colorCounter = 11;
     }
+    fillColor = colors[colorCounter]; 
   }
   
   void colorSwapUp() {
-    fillColor = colors[colorCounter];
     colorCounter++;
     if(colorCounter > 11) {
       colorCounter = 0;
     }  
+    fillColor = colors[colorCounter];
   }
 }
