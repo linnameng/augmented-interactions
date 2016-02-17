@@ -172,9 +172,20 @@ void scheme2Manipulation (String transformation) {
 
 
 void  scheme3SetKey(int keyCode) {
+    if(keyCode == leftArrow) {
+    keysActive.put("rotateLeft", true);
+  } 
+  if(keyCode == rightArrow) {
+   keysActive.put("rotateRight", true);
+  }
   
 }
 
 void  scheme3ReleaseKey(int keyCode) {
-    
+    if(keyCode == leftArrow) {
+    keysActive.put("rotateLeft", false);
+  } 
+  if(keyCode == rightArrow) {
+   keysActive.put("rotateRight", false);
+  }
 }

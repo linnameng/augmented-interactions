@@ -67,6 +67,12 @@ void keyPressed() {
   } 
     else if(scheme3) {
     scheme3SetKey(keyCode);
+    if(keyCode == upArrow) {
+      currentBox().colorSwapUp();
+    }
+    if(keyCode == downArrow) {
+      currentBox().colorSwapDown();
+    }
   }
 }
 
@@ -104,7 +110,7 @@ void mousePressed() {
 }
 
 void mouseDragged() {
-  if (scheme2) {
+  if (scheme2 || scheme3) {
     scheme2ManipulationType = drag;
     scheme2Manipulation(scheme2ManipulationType);
   }
