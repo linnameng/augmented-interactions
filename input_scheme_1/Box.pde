@@ -44,17 +44,12 @@ class Box {
     translate(cx, cy);
     rotate(radians(degrees));
     scale(size);
-    fill(color(red(fillColor),green(fillColor),blue(fillColor),tintPercentage)); //make transparency persist when switching colors
-    
-    if (isSelected)
-    {
+    fill(color(red(fillColor),green(fillColor),blue(fillColor),tintPercentage)); //make transparency persist when switching colors  
+    if (isSelected) {
        borderWeight = 5;
-    }
-    else
-    {
+    } else {
       borderWeight = 1;
     }
-
     strokeWeight(borderWeight); //sets the thickness of the border
     stroke(borderColor);
     rect(x, y, w, h);
@@ -62,21 +57,16 @@ class Box {
   }
   
   
-  void mouseHandles ()
-  {
-      if (enableMouse)
-    {
-      checkForHit(mouseX, mouseY);    
-      if (mouseInside)
-      {
-         borderColor = color(55,55,55);
-      }
-      else
-      {
-         borderColor = color(0,0,0);
-      }
-    }
-  }
+  void mouseHandles () {
+   if (enableMouse) {
+     checkForHit(mouseX, mouseY);    
+     if (mouseInside) {
+       borderColor = color(55,55,55);
+     } else {
+       borderColor = color(0,0,0);
+     }
+   }
+ }
 
   void checkForHit(float x, float y) {
     if (contains(x, y)) {
@@ -108,65 +98,51 @@ class Box {
     return (ox >= x && ox <= (y + w) && oy >= y && oy <= (y + h));
   }
   
-  
-  
   // This function dictates what changes need to be done on the properties of the box
-  public void transformBox()
-  {
+  public void transformBox() {
     isSelected = true;
     
-    if (keysActive.get("moveLeft") )
-    {
-         cx = cx - 2; 
+    if (keysActive.get("moveLeft") ) {
+      cx = cx - 2; 
     }
-    if (keysActive.get("moveRight") )
-    {
-         cx = cx + 2; 
+    if (keysActive.get("moveRight") ) {
+      cx = cx + 2; 
     }
-    if (keysActive.get("moveUp") )
-    {
-         cy = cy - 2; 
+    if (keysActive.get("moveUp") ) {
+      cy = cy - 2; 
     }
-    if (keysActive.get("moveDown") )
-    {
-         cy = cy + 2; 
+    if (keysActive.get("moveDown") ) {
+      cy = cy + 2; 
     }
-    if (keysActive.get("rotateLeftByScroll") )
-    {
-         degrees = degrees - 9;
-         keysActive.put("rotateLeftByScroll", false);
+    if (keysActive.get("rotateLeftByScroll") ) {
+      degrees = degrees - 9;
+      keysActive.put("rotateLeftByScroll", false);
     }
-     if (keysActive.get("rotateRightByScroll") )
-    {
-        degrees = degrees + 9;
-        keysActive.put("rotateRightByScroll", false);
+    if (keysActive.get("rotateRightByScroll") ) {
+      degrees = degrees + 9;
+      keysActive.put("rotateRightByScroll", false);
     }
-     if (keysActive.get("rotateLeft") )
-    {
-         degrees = degrees - 3;
+    if (keysActive.get("rotateLeft") ) {
+      degrees = degrees - 3;
     }
-     if (keysActive.get("rotateRight") )
-    {
-        degrees = degrees + 3;
+    if (keysActive.get("rotateRight") ) {
+      degrees = degrees + 3;
     }
-    if (keysActive.get("transparencyUp") )
-    {
-        tintPercentage = tintPercentage + 3;
-        if(tintPercentage > 255) {
-          tintPercentage = 0;
-        }
+    if (keysActive.get("transparencyUp") ) {
+      tintPercentage = tintPercentage + 3;
+      if(tintPercentage > 255) {
+        tintPercentage = 0;
+      }
     }
-    if (keysActive.get("transparencyDown") )
-    {
-        tintPercentage = tintPercentage - 3;
-        if(tintPercentage < 0) {
-          tintPercentage = 255;
-        }
+    if (keysActive.get("transparencyDown") ) {
+      tintPercentage = tintPercentage - 3;
+      if(tintPercentage < 0) {
+        tintPercentage = 255;
+      }
     }
-    if (keysActive.get("dragMove") )
-    {
-          cx = mouseX;
-          cy = mouseY;
+    if (keysActive.get("dragMove") ) {
+      cx = mouseX;
+      cy = mouseY;
     }
   }
   

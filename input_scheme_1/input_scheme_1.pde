@@ -11,27 +11,25 @@ void setup() {
   b2.degrees = 0;
     
   initializeControls();
-
 }
 
 void draw() {
   background(255);
-   if (scheme2 || scheme3)
-   {
-       enableMouse = true;
-       b1.mouseHandles();
-       b2.mouseHandles();
-   }
-   if(b1.isSelected) {
-      b1.transformBox();  
-   }
-    b1.drawBox();
+  if (scheme2 || scheme3) {
+    enableMouse = true;
+    b1.mouseHandles();
+    b2.mouseHandles();
+  }
+  
+  if(b1.isSelected) {
+    b1.transformBox();
+  }
+  b1.drawBox();
 
   if (b2.isSelected) {
-     b2.transformBox();  
+    b2.transformBox();  
   }
   b2.drawBox();
-
 }
 
 void keyPressed() {
@@ -70,7 +68,6 @@ void keyPressed() {
     else if(scheme3) {
     scheme3SetKey(keyCode);
   }
-  
 }
 
 // when any key is released, it tries to stop doing the changes for that selected scheme
@@ -92,43 +89,41 @@ Box currentBox() {
   }
 }
 
-void mouseClicked()
-{
-  if (scheme2 || scheme3) // since for both scheme 2 and 3, clicking is our selection
-  {
+void mouseClicked() {
+  // since for both scheme 2 and 3, clicking is our selection
+  if (scheme2 || scheme3) {
     scheme2ManipulationType = leftClick;
     scheme2Manipulation(scheme2ManipulationType);
   }
 }
 
-void mouseDragged()
-{
-  if (scheme2)
-  {
+void mousePressed() {
+  if (scheme2) {
+    scheme2Manipulation(pressed);
+  }
+}
+
+void mouseDragged() {
+  if (scheme2) {
     scheme2ManipulationType = drag;
     scheme2Manipulation(scheme2ManipulationType);
   }
 }
 
-void mouseWheel(MouseEvent event) 
-{
-  if (scheme2)
-  {
+void mouseWheel(MouseEvent event) {
+  if (scheme2) {
     float e = event.getCount();
-    if (e > 0)
-    {
+    if (e > 0) {
       scheme2ManipulationType = scrollUp;
     }
-    if (e < 0)
-    {
+    if (e < 0) {
       scheme2ManipulationType = scrollDown;
     }
     scheme2Manipulation(scheme2ManipulationType);
   }
 }
 
-void mouseReleased()
-{
-      scheme2ManipulationType = leftClickRelease;
-      scheme2Manipulation(scheme2ManipulationType);
+void mouseReleased() {
+  scheme2ManipulationType = leftClickRelease;
+  scheme2Manipulation(scheme2ManipulationType);
 }
