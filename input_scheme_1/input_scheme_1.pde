@@ -1,5 +1,6 @@
 Box b1, b2;
 String scheme2ManipulationType = "";
+String scheme3ManipulationType = "";
 
 void setup() {
   size(400, 400);
@@ -126,6 +127,16 @@ void mouseWheel(MouseEvent event) {
       scheme2ManipulationType = scrollDown;
     }
     scheme2Manipulation(scheme2ManipulationType);
+  }
+  else if (scheme3) {
+    float e = event.getCount();
+    if (e > 0) {
+      scheme3ManipulationType = scrollUp;
+    }
+    if (e < 0) {
+      scheme3ManipulationType = scrollDown;
+    }
+    scheme3Manipulation(scheme3ManipulationType);
   }
 }
 

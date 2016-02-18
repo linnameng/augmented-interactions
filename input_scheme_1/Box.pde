@@ -129,16 +129,18 @@ class Box {
       degrees = degrees + 3;
     }
     if (keysActive.get("transparencyUp") ) {
-      tintPercentage = tintPercentage + 3;
+      tintPercentage = tintPercentage + 20;
       if(tintPercentage > 255) {
         tintPercentage = 0;
       }
+      keysActive.put("transparencyUp", false);
     }
     if (keysActive.get("transparencyDown") ) {
-      tintPercentage = tintPercentage - 3;
+      tintPercentage = tintPercentage - 20;
       if(tintPercentage < 0) {
         tintPercentage = 255;
       }
+      keysActive.put("transparencyDown", false);
     }
     if (keysActive.get("dragMove") ) {
       cx = mouseX;

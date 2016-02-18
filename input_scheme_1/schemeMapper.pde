@@ -130,7 +130,7 @@ void scheme2Manipulation (String transformation) {
   
   if (transformation.equalsIgnoreCase(pressed)) {
     // if the user presses the left mouse button outside either box, update transparency
-    if(!b2.mouseInside && !b1.mouseInside && mouseButton == LEFT) {
+    if(!b2.mouseInside && !b1.mouseInside && mouseButton == CENTER) {
       keysActive.put("transparencyUp", true);
     }
     if(mouseButton == RIGHT) {
@@ -171,8 +171,8 @@ void scheme2Manipulation (String transformation) {
 }
 
 
-void  scheme3SetKey(int keyCode) {
-    if(keyCode == leftArrow) {
+void scheme3SetKey(int keyCode) {
+  if(keyCode == leftArrow) {
     keysActive.put("rotateLeft", true);
   } 
   if(keyCode == rightArrow) {
@@ -181,11 +181,23 @@ void  scheme3SetKey(int keyCode) {
   
 }
 
-void  scheme3ReleaseKey(int keyCode) {
-    if(keyCode == leftArrow) {
+void scheme3ReleaseKey(int keyCode) {
+  if(keyCode == leftArrow) {
     keysActive.put("rotateLeft", false);
   } 
   if(keyCode == rightArrow) {
    keysActive.put("rotateRight", false);
+  }
+}
+
+void scheme3Manipulation (String transformation) {
+  if (transformation.equalsIgnoreCase (scrollUp)) {
+    keysActive.put("transparencyUp", true);
+    keysActive.put("transparencyDown", false);
+  }
+  
+  if (transformation.equalsIgnoreCase (scrollDown)) {
+    keysActive.put("transparencyDown", true);
+    keysActive.put("transparencyUp", false);
   }
 }
