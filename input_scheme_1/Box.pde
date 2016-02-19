@@ -129,23 +129,44 @@ class Box {
       degrees = degrees + 3;
     }
     if (keysActive.get("transparencyUp") ) {
-      tintPercentage = tintPercentage + 20;
+      tintPercentage = tintPercentage + 6;
       if(tintPercentage > 255) {
         tintPercentage = 0;
       }
-      keysActive.put("transparencyUp", false);
+      // keysActive.put("transparencyUp", false);
+    }
+     if (keysActive.get("transparencyUpByScroll") ) {
+      tintPercentage = tintPercentage + 18;
+      if(tintPercentage > 255) {
+        tintPercentage = 0;
+      }
+      keysActive.put("transparencyUpByScroll", false);
     }
     if (keysActive.get("transparencyDown") ) {
-      tintPercentage = tintPercentage - 20;
+      tintPercentage = tintPercentage - 6;
       if(tintPercentage < 0) {
         tintPercentage = 255;
       }
-      keysActive.put("transparencyDown", false);
+      // keysActive.put("transparencyDown", false);
+    }
+     if (keysActive.get("transparencyDownByScroll") ) {
+      tintPercentage = tintPercentage - 18;
+      if(tintPercentage < 0) {
+        tintPercentage = 255;
+      }
+       keysActive.put("transparencyDownByScroll", false);
     }
     if (keysActive.get("dragMove") ) {
       cx = mouseX;
       cy = mouseY;
     }
+    
+    if (scheme3)
+    {
+      cx = mouseX;
+      cy = mouseY;
+    }
+    
   }
   
   void colorSwapDown() {

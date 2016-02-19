@@ -1,5 +1,10 @@
 // Mappings of various key codes that we need
 //
+String currentMode = "";
+String mode1 = "1 - only keyboard";
+String mode2 = "2 - only mouse";
+String mode3 = "3 - mouse and keyboard";
+
 int leftArrow = 37;
 int rightArrow = 39;
 int upArrow = 38;
@@ -15,7 +20,15 @@ int keyOne = 49;
 int keyTwo = 50;
 int ctrl = 17;
 int space = 32; 
+int sevenKey = 55;
+int eightKey = 56;
+int nineKey = 57;
+int zeroKey = 48;
+int backspaceKey = 8;
+
 boolean enableMouse = false;
+int equalKey = 187;
+int minusKey = 189;
 
 String scrollUp = "scrolledUp";
 String scrollDown = "scrolledDown";
@@ -42,8 +55,11 @@ void initializeControls() {
   keysActive.put("rotateLeftByScroll", false);
   keysActive.put("rotateRightByScroll", false);
   keysActive.put("transparencyUp", false);
+  keysActive.put("transparencyUpByScroll", false);
+  keysActive.put("transparencyDownByScroll", false);
   keysActive.put("transparencyDown", false);
   keysActive.put("dragMove", false);
+  currentMode = mode1;
 
   b1.isSelected = true;
   b2.isSelected = false;
@@ -135,7 +151,7 @@ void scheme2Manipulation (String transformation) {
     }
     if(mouseButton == RIGHT) {
       currentBox().colorSwapUp();
-    }
+    } 
   }
 
   if (transformation.equalsIgnoreCase(drag)) {
@@ -155,8 +171,14 @@ void scheme2Manipulation (String transformation) {
 
   // stop dragging box with mouse
   if (transformation.equalsIgnoreCase (leftClickRelease)) {
-    keysActive.put("dragMove", false);
-    keysActive.put("transparencyUp", false);
+      if (mouseButton == LEFT)
+      {
+        keysActive.put("dragMove", false);
+      }
+      if (mouseButton == CENTER)
+      {
+        keysActive.put("transparencyUp", false);
+      }
   }
   
   if (transformation.equalsIgnoreCase (scrollUp)) {
@@ -172,32 +194,54 @@ void scheme2Manipulation (String transformation) {
 
 
 void scheme3SetKey(int keyCode) {
-  if(keyCode == leftArrow) {
-    keysActive.put("rotateLeft", true);
-  } 
-  if(keyCode == rightArrow) {
-   keysActive.put("rotateRight", true);
+  if (keyCode == backspaceKey) {
+    if (b2.isSelected)
+    {
+     b1.isSelected = false;
+     b2.isSelected = false;
+    }
+    else if (b1.isSelected)
+    {
+      b1.isSelected = false;
+      b2.isSelected = true;
+    }
+    else
+    {
+      b1.isSelected = true;
+      b2.isSelected = false;
+    }
   }
-  
 }
 
-void scheme3ReleaseKey(int keyCode) {
-  if(keyCode == leftArrow) {
-    keysActive.put("rotateLeft", false);
-  } 
-  if(keyCode == rightArrow) {
-   keysActive.put("rotateRight", false);
-  }
-}
+void scheme3ReleaseKey(int keyCode) {}
 
 void scheme3Manipulation (String transformation) {
   if (transformation.equalsIgnoreCase (scrollUp)) {
-    keysActive.put("transparencyUp", true);
-    keysActive.put("transparencyDown", false);
+    keysActive.put("transparencyUpByScroll", true);
+    keysActive.put("transparencyDownByScroll", false);
   }
   
   if (transformation.equalsIgnoreCase (scrollDown)) {
-    keysActive.put("transparencyDown", true);
-    keysActive.put("transparencyUp", false);
+    keysActive.put("transparencyDownByScroll", true);
+    keysActive.put("transparencyUpByScroll", false);
   }
+ 
+   if (transformation.equalsIgnoreCase (leftClickRelease)) {
+   
+     if(mouseButton == RIGHT) {
+      keysActive.put("rotateRight", false);
+     }
+     if(mouseButton == LEFT) {
+      keysActive.put("rotateLeft", false);
+     }
+    }
+    
+   if (transformation.equalsIgnoreCase(pressed)) {
+     if(mouseButton == RIGHT) {
+      keysActive.put("rotateRight", true);
+     }
+     if(mouseButton == LEFT) {
+      keysActive.put("rotateLeft", true);
+     }
+   }
 }

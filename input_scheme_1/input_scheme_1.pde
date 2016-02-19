@@ -3,7 +3,8 @@ String scheme2ManipulationType = "";
 String scheme3ManipulationType = "";
 
 void setup() {
-  size(400, 400);
+  size(600, 600);
+  
   
   b1 = new Box(75, 100, 100, 100);
   b1.degrees = 0;
@@ -12,10 +13,12 @@ void setup() {
   b2.degrees = 0;
     
   initializeControls();
+
 }
 
 void draw() {
   background(255);
+
   if (scheme2 || scheme3) {
     enableMouse = true;
     b1.mouseHandles();
@@ -31,12 +34,18 @@ void draw() {
     b2.transformBox();  
   }
   b2.drawBox();
+  
+   
+    textAlign(CENTER, CENTER);
+    fill(0);
+    text("current mode: "+currentMode, 120, 20);
 }
 
 void keyPressed() {
   // see if there is a scheme change
   if (keyCode == f1) {
      initializeControls();
+     currentMode = mode1;
      scheme1 = true;
      scheme2 = false;
      scheme3 = false;
@@ -44,6 +53,7 @@ void keyPressed() {
   
   if (keyCode == f2) {
      initializeControls();
+     currentMode = mode2;
      scheme1 = false;
      scheme2 = true;
      scheme3 = false;
@@ -51,6 +61,7 @@ void keyPressed() {
   
   if (keyCode == f3) {
      initializeControls();
+     currentMode = mode3;
      scheme1 = false;
      scheme2 = false;
      scheme3 = true;
@@ -68,10 +79,10 @@ void keyPressed() {
   } 
     else if(scheme3) {
     scheme3SetKey(keyCode);
-    if(keyCode == upArrow) {
+    if(keyCode == 61) {             // change for color swaps
       currentBox().colorSwapUp();
     }
-    if(keyCode == downArrow) {
+    if(keyCode == 45) {           // change for color swaps
       currentBox().colorSwapDown();
     }
   }
@@ -98,7 +109,7 @@ Box currentBox() {
 
 void mouseClicked() {
   // since for both scheme 2 and 3, clicking is our selection
-  if (scheme2 || scheme3) {
+  if (scheme2) {
     scheme2ManipulationType = leftClick;
     scheme2Manipulation(scheme2ManipulationType);
   }
@@ -108,10 +119,13 @@ void mousePressed() {
   if (scheme2) {
     scheme2Manipulation(pressed);
   }
+  if (scheme3){
+  scheme3Manipulation(pressed);
+  }
 }
 
 void mouseDragged() {
-  if (scheme2 || scheme3) {
+  if (scheme2) {
     scheme2ManipulationType = drag;
     scheme2Manipulation(scheme2ManipulationType);
   }
@@ -141,6 +155,13 @@ void mouseWheel(MouseEvent event) {
 }
 
 void mouseReleased() {
+  if (scheme2){
   scheme2ManipulationType = leftClickRelease;
   scheme2Manipulation(scheme2ManipulationType);
+  }
+  
+  if (scheme3){
+    scheme3ManipulationType = leftClickRelease;
+    scheme3Manipulation(scheme3ManipulationType);
+  }
 }
